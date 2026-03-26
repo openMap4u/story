@@ -8,6 +8,8 @@
     "strict": true,
     "skipLibCheck": true,
     "experimentalDecorators": true,
+    "useDefineForClassFields": false,
+    "lib": ["DOM", "ESNext"],
     "outDir": "./dist",
     "rootDir": "./src",
     "declaration": true
