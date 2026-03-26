@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { Signal, createSignal } from '../../src/api/signal';
+import { Signal, createSignal } from '../../src/api/state/signal';
 
 describe('Signal API', () => {
   it('should initialize with a value', () => {
