@@ -1,5 +1,5 @@
-import { Signal } from '../api/signal.js';
-import { Provider } from '../api/context.js';
+import { Signal } from '../api/state/signal.js';
+import { Provider } from '../api/decorator/provider.js';
 
 export abstract class AbstractProviderComponent<T> extends HTMLElement {
   // A generic context name for this abstract component

@@ -1,5 +1,5 @@
-import { Signal } from '../api/signal.js';
-import { Consumer } from '../api/context.js';
+import { Signal } from '../api/state/signal.js';
+import { Consumer } from '../api/decorator/consumer.js';
 import { AbstractProviderComponent } from './AbstractProvider.js';
 
 export abstract class AbstractConsumerComponent<T> extends HTMLElement {
