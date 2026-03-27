@@ -11,7 +11,7 @@ import { CONTEXT_SYMBOL, ContextElement } from './core.js';
  * @param contextName The key of the context provided by a parent.
  * @param selectorKey The specific key on the signal's value to select.
  */
-export function Select<T extends Record<string, any>, K extends keyof T>(
+export function Select<T, K extends keyof NonNullable<T>>(
   contextName: string | symbol,
   selectorKey: K
 ) {
@@ -62,12 +62,12 @@ export function Select<T extends Record<string, any>, K extends keyof T>(
 
         if (parentSignal) {
           // Create a derived signal for the specific property
-          const initialValue = parentSignal.value[selectorKey];
+          const initialValue = parentSignal.value ? (parentSignal.value as any)[selectorKey] : undefined;
           const derivedSignal = new Signal(initialValue);
 
           // Subscribe to the parent signal to update the derived signal
           const unsubscribe = parentSignal.subscribe((newObj) => {
-            derivedSignal.value = newObj[selectorKey];
+            derivedSignal.value = newObj ? (newObj as any)[selectorKey] : undefined;
           });
 
           // Store cleanup function
