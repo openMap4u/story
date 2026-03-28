@@ -16,7 +16,7 @@ describe('Om4uPage', () => {
     document.body.removeChild(story);
   });
 
-  it('generates a uuid if no id is provided', () => {
+  it('generates an id if no id is provided', () => {
     const page = document.createElement('om4u-page') as Om4uPage;
     document.body.appendChild(page);
     expect(page.id).not.toBe('');

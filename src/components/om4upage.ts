@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
 import { customElement } from '../api/decorator/customElement.js';
 import { Consumer } from '../api/decorator/consumer.js';
 import { AbstractConsumerComponent } from './AbstractConsumer.js';
@@ -26,7 +25,7 @@ export class Om4uPage extends AbstractConsumerComponent<StoryContextState> {
   }
 
   connectedCallback() {
-    this._id = this.getAttribute('id') || uuidv4();
+    this._id = this.getAttribute('id') || crypto.randomUUID();
     super.connectedCallback();
 
     // Find provider up the tree
