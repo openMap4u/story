@@ -4,6 +4,22 @@
  * It overrides the `connectedCallback` to append a `<style>` element
  * containing the provided CSS string to the `shadowRoot`.
  *
+ * @example
+ * ```typescript
+ * import { style, customElement } from 'om4u';
+ *
+ * @customElement('styled-element')
+ * @style(`
+ *   :host { display: block; padding: 16px; }
+ *   p { color: red; }
+ * `)
+ * class StyledElement extends HTMLElement {
+ *   connectedCallback() {
+ *     this.innerHTML = `<p>Red Text</p>`;
+ *   }
+ * }
+ * ```
+ *
  * @param cssString The CSS string to apply.
  */
 

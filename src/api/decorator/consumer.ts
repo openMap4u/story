@@ -6,6 +6,26 @@ import { CONTEXT_SYMBOL, ContextElement } from './core.js';
  *
  * It looks up the DOM tree from the current element to find an ancestor
  * that provides the signal for the given contextName.
+ *
+ * @example
+ * ```typescript
+ * import { Consumer, customElement, Signal } from 'om4u';
+ *
+ * @customElement('my-consumer')
+ * class MyConsumer extends HTMLElement {
+ *   @Consumer('my-context')
+ *   declare myContext: Signal<string>;
+ *
+ *   connectedCallback() {
+ *     if (this.myContext) {
+ *       console.log('Context value:', this.myContext.value);
+ *       this.myContext.subscribe(val => console.log('Context updated:', val));
+ *     }
+ *   }
+ * }
+ * ```
+ *
+ * @param contextName The key of the context provided by a parent.
  */
 export function Consumer<T = any>(contextName: string | symbol) {
   return function (target: any, propertyKey: string | symbol) {
