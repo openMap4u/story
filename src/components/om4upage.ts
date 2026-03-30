@@ -23,10 +23,8 @@ export class Om4uPage extends AbstractConsumerComponent<StoryContextState> {
     }
     super.connectedCallback();
 
-    // Find provider up the tree
-    const provider = this.closest('om4u-story') as Om4uStory;
-    if (provider) {
-       provider.registerPage(this.id);
+    if (this._signal) {
+       this._signal.value.registerPage(this.id);
     }
   }
 
