@@ -3,6 +3,7 @@ import { AbstractProviderComponent } from './AbstractProvider.js';
 
 export interface StoryContextState {
   activePageId: string | null;
+  registerPage: (id: string) => void;
 }
 
 import { Provider } from '../api/decorator/provider.js';
@@ -15,7 +16,7 @@ export class Om4uStory extends AbstractProviderComponent<StoryContextState> {
   declare protected _signal: import('../api/state/signal.js').Signal<StoryContextState>;
 
   constructor() {
-    super({ activePageId: null });
+    super({ activePageId: null, registerPage: (id: string) => this.registerPage(id) });
   }
 
   // Allow consumer to register and potentially set initial active page
