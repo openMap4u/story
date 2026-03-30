@@ -6,6 +6,19 @@ import { CONTEXT_SYMBOL, ContextElement } from './core.js';
  *
  * It intercepts the property declaration on the prototype and handles
  * initializing the provider on the actual element instance so descendants can find it.
+ *
+ * @example
+ * ```typescript
+ * import { Provider, customElement, Signal } from 'om4u';
+ *
+ * @customElement('my-provider')
+ * class MyProvider extends HTMLElement {
+ *   @Provider('my-context')
+ *   myContext = new Signal('initial value');
+ * }
+ * ```
+ *
+ * @param contextName The key to register the context under.
  */
 export function Provider(contextName: string | symbol) {
   return function (target: any, propertyKey: string | symbol) {

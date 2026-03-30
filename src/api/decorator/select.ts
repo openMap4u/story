@@ -8,6 +8,28 @@ import { CONTEXT_SYMBOL, ContextElement } from './core.js';
  * that provides the signal for the given `contextName`, then returns
  * a derived signal that only updates when the specific `propertyKey` changes.
  *
+ * @example
+ * ```typescript
+ * import { Select, customElement, Signal } from 'om4u';
+ *
+ * interface MyState {
+ *   count: number;
+ *   title: string;
+ * }
+ *
+ * @customElement('my-selector')
+ * class MySelector extends HTMLElement {
+ *   @Select<MyState, 'count'>('my-context', 'count')
+ *   declare countSignal: Signal<number>;
+ *
+ *   connectedCallback() {
+ *     if (this.countSignal) {
+ *       this.countSignal.subscribe(count => console.log('Count:', count));
+ *     }
+ *   }
+ * }
+ * ```
+ *
  * @param contextName The key of the context provided by a parent.
  * @param selectorKey The specific key on the signal's value to select.
  */
