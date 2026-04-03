@@ -66,7 +66,8 @@ export const Default: Story = {
 
         <div style="border: 1px solid #ccc; padding: 20px; border-radius: 4px; overflow: hidden; position: relative; height: 150px;">
           <om4u-story>
-            <om4u-transition forward="slide-left" back="slide-right"></om4u-transition>
+            <om4u-transition id="forward" transition="slide-left"></om4u-transition>
+            <om4u-transition id="back" transition="slide-right"></om4u-transition>
             <om4u-page id="page-1">
               <h2>Welcome to Page 1</h2>
               <p>This is the first page of our application.</p>

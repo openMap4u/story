@@ -75,7 +75,8 @@ describe('Om4uStory', () => {
     };
 
     const transitionConfig = document.createElement('om4u-transition');
-    transitionConfig.setAttribute('forward', 'slide-fwd');
+    transitionConfig.setAttribute('id', 'forward');
+    transitionConfig.setAttribute('transition', 'slide-fwd');
     element.appendChild(transitionConfig);
 
     element.registerPage('page-1');

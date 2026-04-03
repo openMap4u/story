@@ -26,15 +26,15 @@ export class Om4uStory extends AbstractProviderComponent<StoryContextState> {
     }
   }
 
-  setActivePage(id: string, action?: 'forward' | 'back' | 'drilldown' | 'rollup') {
+  setActivePage(id: string, action?: string) {
     if (this._signal) {
       if ('startViewTransition' in document) {
         let transitionName: string | undefined;
 
         if (action) {
-          const transitionConfig = this.querySelector('om4u-transition') as any;
+          const transitionConfig = this.querySelector(`om4u-transition[id="${action}"]`) as any;
           if (transitionConfig) {
-            transitionName = transitionConfig.getAttribute(action) || transitionConfig[action];
+            transitionName = transitionConfig.getAttribute('transition') || transitionConfig.transition;
           }
         }
 
