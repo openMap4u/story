@@ -68,4 +68,14 @@ describe('Om4uPage', () => {
       expect(page2.shadowRoot!.innerHTML).toContain('<slot></slot>');
     });
   });
+
+  it('sets viewTransitionName if transition attribute is provided', () => {
+    const page = document.createElement('om4u-page') as Om4uPage;
+    page.setAttribute('transition', 'my-transition');
+    document.body.appendChild(page);
+
+    expect(page.transition).toBe('my-transition');
+    expect(page.style.viewTransitionName).toBe('my-transition');
+    document.body.removeChild(page);
+  });
 });

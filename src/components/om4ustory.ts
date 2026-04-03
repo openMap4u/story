@@ -28,7 +28,13 @@ export class Om4uStory extends AbstractProviderComponent<StoryContextState> {
 
   setActivePage(id: string) {
     if (this._signal) {
-      this.updateSignal({ ...this._signal.value, activePageId: id });
+      if ('startViewTransition' in document) {
+        (document as any).startViewTransition(() => {
+          this.updateSignal({ ...this._signal!.value, activePageId: id });
+        });
+      } else {
+        this.updateSignal({ ...this._signal.value, activePageId: id });
+      }
     }
   }
 
