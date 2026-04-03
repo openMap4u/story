@@ -26,9 +26,34 @@ export class Om4uStory extends AbstractProviderComponent<StoryContextState> {
     }
   }
 
-  setActivePage(id: string) {
+  setActivePage(id: string, action?: string) {
     if (this._signal) {
-      this.updateSignal({ ...this._signal.value, activePageId: id });
+      if ('startViewTransition' in document) {
+        let transitionName: string | undefined;
+
+        if (action) {
+          const transitionConfig = this.querySelector(`om4u-transition[id="${action}"]`) as any;
+          if (transitionConfig) {
+            transitionName = transitionConfig.getAttribute('transition') || transitionConfig.transition;
+          }
+        }
+
+        if (transitionName) {
+            document.documentElement.setAttribute('data-transition', transitionName);
+        }
+
+        const transition = (document as any).startViewTransition(() => {
+          this.updateSignal({ ...this._signal!.value, activePageId: id });
+        });
+
+        transition.finished.finally(() => {
+            if (transitionName) {
+                document.documentElement.removeAttribute('data-transition');
+            }
+        });
+      } else {
+        this.updateSignal({ ...this._signal.value, activePageId: id });
+      }
     }
   }
 

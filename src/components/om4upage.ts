@@ -9,6 +9,9 @@ export class Om4uPage extends AbstractConsumerComponent<StoryContextState> {
   @Attribute('id')
   declare id: string;
 
+  @Attribute('transition')
+  declare transition: string;
+
   @Consumer(Om4uStory.CONTEXT_KEY)
   protected _signal?: import('../api/state/signal.js').Signal<StoryContextState>;
 
@@ -25,6 +28,10 @@ export class Om4uPage extends AbstractConsumerComponent<StoryContextState> {
 
     if (this._signal) {
        this._signal.value.registerPage(this.id);
+    }
+
+    if (this.transition) {
+        this.style.viewTransitionName = this.transition;
     }
   }
 
