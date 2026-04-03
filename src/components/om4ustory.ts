@@ -4,6 +4,8 @@ import { AbstractProviderComponent } from './AbstractProvider.js';
 export interface StoryContextState {
   activePageId: string | null;
   registerPage: (id: string) => void;
+  transitions: Record<string, string>;
+  registerTransition: (id: string, transition: string) => void;
 }
 
 import { Provider } from '../api/decorator/provider.js';
@@ -16,7 +18,12 @@ export class Om4uStory extends AbstractProviderComponent<StoryContextState> {
   declare protected _signal: import('../api/state/signal.js').Signal<StoryContextState>;
 
   constructor() {
-    super({ activePageId: null, registerPage: (id: string) => this.registerPage(id) });
+    super({
+      activePageId: null,
+      registerPage: (id: string) => this.registerPage(id),
+      transitions: { forward: 'slide-left', back: 'slide-right' },
+      registerTransition: (id: string, transition: string) => this.registerTransition(id, transition)
+    });
   }
 
   // Allow consumer to register and potentially set initial active page
@@ -26,16 +33,25 @@ export class Om4uStory extends AbstractProviderComponent<StoryContextState> {
     }
   }
 
+  registerTransition(id: string, transition: string) {
+    if (this._signal) {
+      this.updateSignal({
+        ...this._signal.value,
+        transitions: {
+          ...this._signal.value.transitions,
+          [id]: transition
+        }
+      });
+    }
+  }
+
   setActivePage(id: string, action?: string) {
     if (this._signal) {
       if ('startViewTransition' in document) {
         let transitionName: string | undefined;
 
         if (action) {
-          const transitionConfig = this.querySelector(`om4u-transition[id="${action}"]`) as any;
-          if (transitionConfig) {
-            transitionName = transitionConfig.getAttribute('transition') || transitionConfig.transition;
-          }
+          transitionName = this._signal.value.transitions[action];
         }
 
         if (transitionName) {
