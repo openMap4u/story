@@ -30,7 +30,8 @@ export class Om4uPage extends AbstractConsumerComponent<StoryContextState> {
        this._signal.value.registerPage(this.id);
     }
 
-    if (this.transition) {
+    // Only apply the transition attribute if viewTransitionName isn't already set via style
+    if (this.transition && !this.style.viewTransitionName) {
         this.style.viewTransitionName = this.transition;
     }
   }

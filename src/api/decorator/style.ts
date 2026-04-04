@@ -30,11 +30,13 @@ export function style(cssString: string) {
   // Generate a unique ID per decorator usage
   const styleId = `style-decorator-${++styleCounter}`;
 
-  return function <T extends { new (...args: any[]): HTMLElement }>(target: T) {
+  return function <T extends { new (...args: any[]): HTMLElement }>(target: T): T {
     return class extends target {
       connectedCallback() {
         // Call the original connectedCallback if it exists
+        // @ts-ignore
         if (super.connectedCallback) {
+          // @ts-ignore
           super.connectedCallback();
         }
 
