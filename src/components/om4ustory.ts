@@ -12,7 +12,7 @@ import { Provider } from '../api/decorator/provider.js';
 
 @customElement('om4u-story')
 export class Om4uStory extends AbstractProviderComponent<StoryContextState> {
-  static readonly CONTEXT_KEY = Symbol('om4ustory-context');
+  static readonly CONTEXT_KEY: symbol = Symbol('om4ustory-context');
 
   @Provider(Om4uStory.CONTEXT_KEY)
   declare protected _signal: import('../api/state/signal.js').Signal<StoryContextState>;
@@ -74,7 +74,9 @@ export class Om4uStory extends AbstractProviderComponent<StoryContextState> {
   }
 
   connectedCallback() {
+    // @ts-ignore
     if (super.connectedCallback) {
+      // @ts-ignore
       super.connectedCallback();
     }
     // Basic rendering of slot

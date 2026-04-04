@@ -1,6 +1,6 @@
 import { html } from 'lit';
 
-import { Header } from './Header';
+import { Header } from './Header.js';
 import './page.css';
 
 type User = {
