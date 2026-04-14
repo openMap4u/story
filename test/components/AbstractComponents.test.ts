@@ -68,17 +68,11 @@ describe('Abstract Web Components with Context API', () => {
   it('should handle missing providers gracefully', () => {
     const consumer = document.createElement('test-consumer') as TestConsumer;
 
-    // Warn spy since we expect a warning when missing a provider
-    const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
-
     // Attach standalone consumer (no provider in DOM hierarchy)
     container.appendChild(consumer);
 
     // `onSignalUpdate` should NOT be called since there is no signal to subscribe to
     expect(consumer.handleUpdate).not.toHaveBeenCalled();
-    expect(consoleSpy).toHaveBeenCalledWith('Signal provider not found for AbstractConsumerComponent');
-
-    consoleSpy.mockRestore();
   });
 
   it('should unsubscribe from signal when removed from DOM', () => {

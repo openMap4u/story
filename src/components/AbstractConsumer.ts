@@ -17,8 +17,6 @@ export abstract class AbstractConsumerComponent<T> extends HTMLElement {
       this._unsubscribe = this._signal.subscribe((value) => {
         this.onSignalUpdate(value);
       });
-    } else {
-      console.warn('Signal provider not found for AbstractConsumerComponent');
     }
   }
 
