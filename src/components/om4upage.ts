@@ -15,6 +15,8 @@ export class Om4uPage extends AbstractConsumerComponent<StoryContextState> {
   @Consumer(Om4uStory.CONTEXT_KEY)
   protected _signal?: import('../api/state/signal.js').Signal<StoryContextState>;
 
+  private _isActive: boolean = false;
+
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
@@ -38,10 +40,14 @@ export class Om4uPage extends AbstractConsumerComponent<StoryContextState> {
 
   protected onSignalUpdate(value: StoryContextState): void {
     if (this.shadowRoot) {
-      if (value.activePageId === this.id) {
-        this.shadowRoot.innerHTML = `<slot></slot>`;
-      } else {
-        this.shadowRoot.innerHTML = ``;
+      const isActive = value.activePageId === this.id;
+      if (isActive !== this._isActive) {
+        this._isActive = isActive;
+        if (isActive) {
+          this.shadowRoot.innerHTML = `<slot></slot>`;
+        } else {
+          this.shadowRoot.innerHTML = ``;
+        }
       }
     }
   }
